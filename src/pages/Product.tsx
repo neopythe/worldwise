@@ -1,9 +1,9 @@
-import Navigation from "@/components/Navigation";
+import PageNavigation from "@/components/PageNavigation";
 
 function Product() {
   return (
     <div>
-      <Navigation />
+      <PageNavigation />
       <h1>Product</h1>
     </div>
   );

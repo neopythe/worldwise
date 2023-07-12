@@ -1,9 +1,9 @@
-import Navigation from "@/components/Navigation";
+import PageNavigation from "@/components/PageNavigation";
 
 function Pricing() {
   return (
     <div>
-      <Navigation />
+      <PageNavigation />
       <h1>Pricing</h1>
     </div>
   );

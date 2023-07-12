@@ -1,9 +1,9 @@
-import Navigation from "@/components/Navigation";
+import PageNavigation from "@/components/PageNavigation";
 
 function NotFound() {
   return (
     <div>
-      <Navigation />
+      <PageNavigation />
       Page not found :(
     </div>
   );

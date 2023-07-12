@@ -1,13 +1,13 @@
 import { Link } from "react-router-dom";
 
-import Navigation from "@/components/Navigation";
+import PageNavigation from "@/components/PageNavigation";
 
 function Homepage() {
   return (
     <div>
-      <Navigation />
+      <PageNavigation />
       <h1>WorldWise</h1>
-      <Link to="/pricing">Pricing</Link>
+      <Link to="/app">Go to the app</Link>
     </div>
   );
 }
