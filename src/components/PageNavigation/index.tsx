@@ -2,7 +2,7 @@ import { NavLink } from "react-router-dom";
 
 import Logo from "@/components/Logo";
 
-import styles from "@/components/PageNavigation.module.css";
+import styles from "./PageNavigation.module.css";
 
 function PageNavigation() {
   return (

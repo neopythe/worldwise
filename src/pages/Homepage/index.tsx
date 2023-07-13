@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 
 import PageNavigation from "@/components/PageNavigation";
 
-import styles from "@/pages/Homepage.module.css";
+import styles from "./Homepage.module.css";
 
 function Homepage() {
   return (

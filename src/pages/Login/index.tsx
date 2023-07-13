@@ -2,7 +2,7 @@ import { useState } from "react";
 
 import PageNavigation from "@/components/PageNavigation";
 
-import styles from "@/pages/Login.module.css";
+import styles from "./Login.module.css";
 
 function Login() {
   // PRE-FILL FOR DEV PURPOSES

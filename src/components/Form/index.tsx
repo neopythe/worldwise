@@ -4,7 +4,7 @@ import { useState } from "react";
 
 // import { convertToEmoji } from "@/utils/convertToEmoji";
 
-import styles from "@/components/Form.module.css";
+import styles from "./Form.module.css";
 
 function Form() {
   const [cityName, setCityName] = useState("");

@@ -1,7 +1,7 @@
 import PageNavigation from "@/components/PageNavigation";
 
 // Uses the same styles as Product
-import styles from "@/pages/Product.module.css";
+import styles from "../Product/Product.module.css";
 
 function Product() {
   return (

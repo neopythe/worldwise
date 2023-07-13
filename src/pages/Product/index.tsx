@@ -1,6 +1,6 @@
 import PageNavigation from "@/components/PageNavigation";
 
-import styles from "@/pages/Product.module.css";
+import styles from "./Product.module.css";
 
 function Product() {
   return (

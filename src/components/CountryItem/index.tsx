@@ -1,4 +1,4 @@
-import styles from "@/components/CountryItem.module.css";
+import styles from "./CountryItem.module.css";
 
 interface Props {
   country: {
