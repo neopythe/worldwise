@@ -1,8 +1,8 @@
 import styles from "./City.module.css";
 
 const formatDate = (date: string | null) => {
-  if (!date) return "No date";
-  new Intl.DateTimeFormat("en", {
+  if (!date) return null;
+  return new Intl.DateTimeFormat("en", {
     day: "numeric",
     month: "long",
     year: "numeric",
