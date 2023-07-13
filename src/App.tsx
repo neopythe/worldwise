@@ -2,9 +2,10 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import AppLayout from "@/pages/AppLayout";
 import Homepage from "@/pages/Homepage";
+import Login from "@/pages/Login";
+import PageNotFound from "@/pages/PageNotFound";
 import Pricing from "@/pages/Pricing";
 import Product from "@/pages/Product";
-import NotFound from "@/pages/NotFound";
 
 function App() {
   return (
@@ -14,7 +15,8 @@ function App() {
         <Route path="/app" element={<AppLayout />} />
         <Route path="/pricing" element={<Pricing />} />
         <Route path="/product" element={<Product />} />
-        <Route path="*" element={<NotFound />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="*" element={<PageNotFound />} />
       </Routes>
     </BrowserRouter>
   );
