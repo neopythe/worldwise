@@ -1,14 +1,6 @@
-import styles from "./City.module.css";
+import { formatDate } from "@/utils/formatDate";
 
-const formatDate = (date: string | null) => {
-  if (!date) return null;
-  return new Intl.DateTimeFormat("en", {
-    day: "numeric",
-    month: "long",
-    year: "numeric",
-    weekday: "long",
-  }).format(new Date(date));
-};
+import styles from "./City.module.css";
 
 function City() {
   // TEMP DATA
@@ -32,7 +24,7 @@ function City() {
 
       <div className={styles.row}>
         <h6>You went to {cityName} on</h6>
-        <p>{formatDate(date || null)}</p>
+        <p>{formatDate(date || null, { weekday: true })}</p>
       </div>
 
       {notes && (
