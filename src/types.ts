@@ -11,4 +11,9 @@ interface City {
   id: number;
 }
 
-export type { City };
+interface Country {
+  country: string;
+  emoji: string;
+}
+
+export type { City, Country };

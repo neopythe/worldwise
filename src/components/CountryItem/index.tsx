@@ -7,11 +7,11 @@ interface Props {
   };
 }
 
-function CountryItem({ country }: Props) {
+function CountryItem({ country: { emoji, country } }: Props) {
   return (
     <li className={styles.countryItem}>
-      <span>{country.emoji}</span>
-      <span>{country.country}</span>
+      <span>{emoji}</span>
+      <span>{country}</span>
     </li>
   );
 }

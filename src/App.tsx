@@ -11,6 +11,7 @@ import Pricing from "@/pages/Pricing";
 import Product from "@/pages/Product";
 
 import CityList from "@/components/CityList";
+import CountryList from "@/components/CountryList";
 
 const BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
@@ -42,7 +43,10 @@ function App() {
             path="cities"
             element={<CityList cities={cities} isLoading={isLoading} />}
           />
-          <Route path="countries" element={<p>Countries</p>} />
+          <Route
+            path="countries"
+            element={<CountryList cities={cities} isLoading={isLoading} />}
+          />
           <Route path="form" element={<p>Form</p>} />
         </Route>
         <Route path="pricing" element={<Pricing />} />
