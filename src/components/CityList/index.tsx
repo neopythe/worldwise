@@ -1,4 +1,4 @@
-import { City } from "@/types";
+import type { City } from "@/types";
 
 import CityItem from "@/components/CityItem";
 import Message from "@/components/Message";

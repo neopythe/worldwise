@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
-import { City } from "@/types";
+import type { City } from "@/types";
 
 import AppLayout from "@/pages/AppLayout";
 import Homepage from "@/pages/Homepage";
@@ -10,6 +10,7 @@ import PageNotFound from "@/pages/PageNotFound";
 import Pricing from "@/pages/Pricing";
 import Product from "@/pages/Product";
 
+import CityDetails from "@/components/City";
 import CityList from "@/components/CityList";
 import CountryList from "@/components/CountryList";
 
@@ -43,6 +44,7 @@ function App() {
             path="cities"
             element={<CityList cities={cities} isLoading={isLoading} />}
           />
+          <Route path="cities/:id" element={<CityDetails />} />
           <Route
             path="countries"
             element={<CountryList cities={cities} isLoading={isLoading} />}
