@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Navigate, Routes, Route } from "react-router-dom";
 
 import type { City } from "@/types";
 
@@ -13,6 +13,7 @@ import Product from "@/pages/Product";
 import CityDetails from "@/components/City";
 import CityList from "@/components/CityList";
 import CountryList from "@/components/CountryList";
+import Form from "@/components/Form";
 
 const BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
@@ -36,10 +37,7 @@ function App() {
       <Routes>
         <Route index element={<Homepage />} />
         <Route path="app" element={<AppLayout />}>
-          <Route
-            index
-            element={<CityList cities={cities} isLoading={isLoading} />}
-          />
+          <Route index element={<Navigate to="cities" replace />} />
           <Route
             path="cities"
             element={<CityList cities={cities} isLoading={isLoading} />}
@@ -49,7 +47,7 @@ function App() {
             path="countries"
             element={<CountryList cities={cities} isLoading={isLoading} />}
           />
-          <Route path="form" element={<p>Form</p>} />
+          <Route path="form" element={<Form />} />
         </Route>
         <Route path="pricing" element={<Pricing />} />
         <Route path="product" element={<Product />} />
