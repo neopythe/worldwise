@@ -1,61 +1,78 @@
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
-// import { formatDate } from "@/utils/formatDate";
+import ButtonBack from "@/components/ButtonBack";
+import Message from "@/components/Message";
+import Spinner from "@/components/Spinner";
 
-// import styles from "./City.module.css";
+import { useCities } from "@/hooks/useCities";
+
+import { formatDate } from "@/utils/formatDate";
+
+import styles from "./City.module.css";
+
+import type { City } from "@/types";
 
 type Params = { id: string };
 
 function City() {
   const { id } = useParams<Params>();
 
-  // TEMP DATA
-  // const currentCity = {
-  //   cityName: "Lisbon",
-  //   emoji: "🇵🇹",
-  //   date: "2027-10-31T15:59:59.138Z",
-  //   notes: "My favorite city so far!",
-  // };
+  const { currentCity, error, getCity, isLoading } = useCities();
 
-  // const { cityName, emoji, date, notes } = currentCity;
+  const [displayedCity, setDisplayedCity] = useState<City | null>(null);
 
-  return <h1>{id}</h1>;
+  useEffect(() => {
+    if (id) {
+      setDisplayedCity(null);
+      getCity(+id);
+    }
+  }, [id]);
 
-  // return (
-  //   <div className={styles.city}>
-  //     <div className={styles.row}>
-  //       <h6>City name</h6>
-  //       <h3>
-  //         <span>{emoji}</span> {cityName}
-  //       </h3>
-  //     </div>
+  useEffect(() => {
+    if (currentCity) setDisplayedCity(currentCity);
+  }, [currentCity]);
 
-  //     <div className={styles.row}>
-  //       <h6>You went to {cityName} on</h6>
-  //       <p>{formatDate(date || null, { weekday: true })}</p>
-  //     </div>
+  if (isLoading) return <Spinner />;
 
-  //     {notes && (
-  //       <div className={styles.row}>
-  //         <h6>Your notes</h6>
-  //         <p>{notes}</p>
-  //       </div>
-  //     )}
+  if (!displayedCity) return null;
+  if (error) return <Message message={String(error.message)} />;
 
-  //     <div className={styles.row}>
-  //       <h6>Learn more</h6>
-  //       <a
-  //         href={`https://en.wikipedia.org/wiki/${cityName}`}
-  //         target="_blank"
-  //         rel="noreferrer"
-  //       >
-  //         Check out {cityName} on Wikipedia &rarr;
-  //       </a>
-  //     </div>
+  const { cityName, emoji, date, notes } = displayedCity;
 
-  //     <div>{/* <ButtonBack /> */}</div>
-  //   </div>
-  // );
+  return (
+    <div className={styles.city}>
+      <div className={styles.row}>
+        <h6>City name</h6>
+        <h3>
+          <span>{emoji}</span> {cityName}
+        </h3>
+      </div>
+      <div className={styles.row}>
+        <h6>You went to {cityName} on</h6>
+        <p>{formatDate(date || null, { weekday: true })}</p>
+      </div>
+      {notes && (
+        <div className={styles.row}>
+          <h6>Your notes</h6>
+          <p>{notes}</p>
+        </div>
+      )}
+      <div className={styles.row}>
+        <h6>Learn more</h6>
+        <a
+          href={`https://en.wikipedia.org/wiki/${cityName}`}
+          target="_blank"
+          rel="noreferrer"
+        >
+          Check out {cityName} on Wikipedia &rarr;
+        </a>
+      </div>
+      <div>
+        <ButtonBack />
+      </div>
+    </div>
+  );
 }
 
 export default City;

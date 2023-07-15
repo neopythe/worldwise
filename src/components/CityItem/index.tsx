@@ -1,10 +1,12 @@
 import { Link } from "react-router-dom";
 
-import type { City } from "@/types";
+import { useCities } from "@/hooks/useCities";
 
 import { formatDate } from "@/utils/formatDate";
 
 import styles from "./CityItem.module.css";
+
+import type { City } from "@/types";
 
 interface Props {
   city: City;
@@ -19,11 +21,18 @@ function CityItem({
     position: { lat, lng },
   },
 }: Props) {
+  const { currentCity } = useCities();
+
   const queryString = `lat=${lat}&lng=${lng}`;
 
   return (
     <li>
-      <Link to={`${id}?${queryString}`} className={styles.cityItem}>
+      <Link
+        to={`${id}?${queryString}`}
+        className={`${styles.cityItem} ${
+          id === currentCity?.id ? styles["cityItem--active"] : ""
+        }`}
+      >
         <span className={styles.emoji}>{emoji}</span>
         <h3 className={styles.name}>{cityName}</h3>
         <time className={styles.date}>{formatDate(date)}</time>
