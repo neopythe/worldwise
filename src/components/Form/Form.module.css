@@ -3,9 +3,14 @@
   border-radius: 7px;
   padding: 2rem 3rem;
   width: 100%;
+  overflow: scroll;
   display: flex;
   flex-direction: column;
   gap: 2rem;
+}
+
+.form::-webkit-scrollbar {
+  width: 0;
 }
 
 .row {
