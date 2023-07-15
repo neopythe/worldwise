@@ -1,17 +1,15 @@
-import { City, Country } from "@/types";
-
 import CountryItem from "@/components/CountryItem";
 import Message from "@/components/Message";
 import Spinner from "@/components/Spinner";
 
+import { useCities } from "@/hooks/useCities";
+
+import type { Country } from "@/types";
+
 import styles from "./CountryList.module.css";
 
-interface Props {
-  cities: City[];
-  isLoading: boolean;
-}
-
-function CountryList({ cities, isLoading }: Props) {
+function CountryList() {
+  const { cities, isLoading } = useCities();
   if (isLoading) return <Spinner />;
   if (!cities.length)
     return (
