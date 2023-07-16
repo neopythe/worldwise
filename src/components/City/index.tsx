@@ -35,8 +35,8 @@ function City() {
 
   if (isLoading) return <Spinner />;
 
+  if (error) return <Message message={error} />;
   if (!displayedCity) return null;
-  if (error) return <Message message={String(error.message)} />;
 
   const { cityName, emoji, date, notes } = displayedCity;
 

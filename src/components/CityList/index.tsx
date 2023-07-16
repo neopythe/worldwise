@@ -7,13 +7,15 @@ import { useCities } from "@/hooks/useCities";
 import styles from "./CityList.module.css";
 
 function CityList() {
-  const { cities, isLoading } = useCities();
+  const { cities, error, isLoading } = useCities();
 
   if (isLoading) return <Spinner />;
   if (!cities.length)
     return (
       <Message message="Add your first city by clicking a city on the map" />
     );
+
+  if (error) return <Message message={error} />;
 
   return (
     <ul className={styles.cityList}>
