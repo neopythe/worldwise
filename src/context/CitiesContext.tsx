@@ -1,55 +1,55 @@
 import { createContext, useEffect, useState } from "react";
 
-import type { City } from "@/types";
+import type { CitiesContextType, City } from "@/types";
+
+export const CitiesContext = createContext<CitiesContextType | undefined>(
+  undefined
+);
 
 interface Props {
   children: React.ReactNode;
 }
 
-const BASE_URL = import.meta.env.VITE_API_BASE_URL;
-
-export const CitiesContext = createContext<{
-  cities: City[];
-  currentCity: City | null;
-  error: Error | null;
-  getCity: (id: number) => void;
-  isLoading: boolean;
-}>({
-  cities: [],
-  currentCity: null,
-  error: null,
-  getCity: () => {
-    throw new Error("getCity function must be overridden in provider");
-  },
-  isLoading: false,
-});
+const CITIES_API = `${import.meta.env.VITE_API_BASE_URL}/cities`;
 
 function CitiesProvider({ children }: Props) {
   const [cities, setCities] = useState<City[]>([]);
   const [currentCity, setCurrentCity] = useState<City | null>(null);
   const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState<Error | null>(null);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     setIsLoading(true);
-    fetch(`${BASE_URL}/cities`)
-      .then((response) => response.json())
+    fetch(CITIES_API)
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Could not fetch cities");
+        }
+        return response.json();
+      })
       .then((data: City[]) => {
         setCities(data);
       })
-      .catch((error) => console.error(error))
+      .catch((error: Error) => setError(error.message))
       .finally(() => setIsLoading(false));
+
+    return () => {
+      setError(null);
+    };
   }, []);
 
   function getCity(id: number) {
     setIsLoading(true);
-    fetch(`${BASE_URL}/cities/${id}`)
-      .then((response) => response.json())
+    fetch(`${CITIES_API}/${id}`)
+      .then((response) => {
+        if (!response.ok) throw new Error("City not found 😅");
+        return response.json();
+      })
       .then((data: City) => {
         if (data.id) setCurrentCity(data);
         else throw new Error("City not found 😅");
       })
-      .catch((error: Error) => setError(error))
+      .catch((error: Error) => setError(error.message))
       .finally(() => setIsLoading(false));
   }
 
@@ -61,6 +61,7 @@ function CitiesProvider({ children }: Props) {
         error,
         getCity,
         isLoading,
+        setError,
       }}
     >
       {children}

@@ -1,3 +1,17 @@
+interface CitiesState {
+  cities: City[];
+  currentCity: City | null;
+  error: string | null;
+  isLoading: boolean;
+}
+
+interface CitiesActions {
+  getCity: (id: number) => void;
+  setError: (error: string | null) => void;
+}
+
+type CitiesContextType = CitiesState & CitiesActions;
+
 interface City {
   cityName: string;
   country: string;
@@ -16,4 +30,4 @@ interface Country {
   emoji: string;
 }
 
-export type { City, Country };
+export type { City, CitiesContextType, Country };
