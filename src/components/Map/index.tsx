@@ -8,31 +8,30 @@ import {
   Popup,
   TileLayer,
 } from "react-leaflet";
-import { useNavigate, useSearchParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 import Button from "@/components/Button";
 
 import { useCities } from "@/hooks/useCities";
 import { useGeolocation } from "@/hooks/useGeolocation";
+import { useUrlPosition } from "@/hooks/useUrlPosition";
 
 import styles from "./Map.module.css";
 
 type Position = LatLngExpression;
 
 function Map() {
-  const [searchParams] = useSearchParams();
-
   const [position, setPosition] = useState<Position>([40, 0]);
 
   const { cities } = useCities();
+
   const {
     getPosition,
     isLoading,
     position: geolocationPosition,
   } = useGeolocation();
 
-  const mapLat = searchParams.get("lat");
-  const mapLng = searchParams.get("lng");
+  const [mapLat, mapLng] = useUrlPosition();
 
   useEffect(() => {
     if (mapLat && mapLng) setPosition([+mapLat, +mapLng]);
@@ -82,8 +81,11 @@ function ChangeCentre({ position }: { position: Position }) {
 
 function DetectClick() {
   const navigate = useNavigate();
+  const { setError } = useCities();
+
   useMapEvents({
     click: (event) => {
+      setError(null);
       const { lat, lng } = event.latlng;
       navigate(`form?lat=${lat}&lng=${lng}`);
     },
