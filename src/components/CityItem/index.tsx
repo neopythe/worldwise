@@ -21,9 +21,14 @@ function CityItem({
     position: { lat, lng },
   },
 }: Props) {
-  const { currentCity } = useCities();
+  const { currentCity, deleteCity } = useCities();
 
   const queryString = `lat=${lat}&lng=${lng}`;
+
+  async function handleClick(event: React.MouseEvent<HTMLButtonElement>) {
+    event.preventDefault();
+    await deleteCity(id);
+  }
 
   return (
     <li>
@@ -36,7 +41,10 @@ function CityItem({
         <span className={styles.emoji}>{emoji}</span>
         <h3 className={styles.name}>{cityName}</h3>
         <time className={styles.date}>{formatDate(date)}</time>
-        <button className={styles.deleteBtn}>&times;</button>
+        {/* eslint-disable-next-line @typescript-eslint/no-misused-promises */}
+        <button onClick={handleClick} className={styles.deleteBtn}>
+          &times;
+        </button>
       </Link>
     </li>
   );
