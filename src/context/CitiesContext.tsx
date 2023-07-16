@@ -38,6 +38,42 @@ function CitiesProvider({ children }: Props) {
     };
   }, []);
 
+  async function addCity(city: City) {
+    setIsLoading(true);
+    await fetch(CITIES_API, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(city),
+    })
+      .then((response) => {
+        if (!response.ok) throw new Error("Could not add city");
+        return response.json();
+      })
+      .then((data: City) => {
+        if (data.id) setCities((cities) => [...cities, data]);
+      })
+      .catch((error: Error) => setError(error.message))
+      .finally(() => setIsLoading(false));
+  }
+
+  async function deleteCity(id: number) {
+    setIsLoading(true);
+    await fetch(`${CITIES_API}/${id}`, {
+      method: "DELETE",
+    })
+      .then((response) => {
+        if (!response.ok)
+          throw new Error("There was an error deleting this city");
+      })
+      .then(() => {
+        setCities((cities) => cities.filter((city) => city.id !== id));
+      })
+      .catch((error: Error) => setError(error.message))
+      .finally(() => setIsLoading(false));
+  }
+
   function getCity(id: number) {
     setIsLoading(true);
     fetch(`${CITIES_API}/${id}`)
@@ -56,8 +92,10 @@ function CitiesProvider({ children }: Props) {
   return (
     <CitiesContext.Provider
       value={{
+        addCity,
         cities,
         currentCity,
+        deleteCity,
         error,
         getCity,
         isLoading,

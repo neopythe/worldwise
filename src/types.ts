@@ -6,6 +6,8 @@ interface CitiesState {
 }
 
 interface CitiesActions {
+  addCity: (city: City) => Promise<void>;
+  deleteCity: (id: number) => Promise<void>;
   getCity: (id: number) => void;
   setError: (error: string | null) => void;
 }
