@@ -1,15 +1,14 @@
+interface CitiesActions {
+  addCity: (city: City) => Promise<void>;
+  deleteCity: (id: number) => Promise<void>;
+  getCity: (id: number) => void;
+}
+
 interface CitiesState {
   cities: City[];
   currentCity: City | null;
   error: string | null;
   isLoading: boolean;
-}
-
-interface CitiesActions {
-  addCity: (city: City) => Promise<void>;
-  deleteCity: (id: number) => Promise<void>;
-  getCity: (id: number) => void;
-  setError: (error: string | null) => void;
 }
 
 type CitiesContextType = CitiesState & CitiesActions;
@@ -32,4 +31,4 @@ interface Country {
   emoji: string;
 }
 
-export type { City, CitiesContextType, Country };
+export type { CitiesContextType, CitiesActions, CitiesState, City, Country };
