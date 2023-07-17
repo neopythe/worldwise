@@ -81,11 +81,11 @@ function ChangeCentre({ position }: { position: Position }) {
 
 function DetectClick() {
   const navigate = useNavigate();
-  const { setError } = useCities();
+  // Import a dispatch function from the context for error resetting, if desired
 
   useMapEvents({
     click: (event) => {
-      setError(null);
+      // Reset error state here, if desired
       const { lat, lng } = event.latlng;
       navigate(`form?lat=${lat}&lng=${lng}`);
     },
