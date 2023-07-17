@@ -2,7 +2,7 @@ import styles from "./Button.module.css";
 
 interface Props {
   children: React.ReactNode;
-  onClick: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
+  onClick?: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
   type?: "primary" | "back" | "position";
 }
 
