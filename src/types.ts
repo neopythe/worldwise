@@ -1,3 +1,15 @@
+interface AuthActions {
+  login: (email: string, password: string) => void;
+  logout: () => void;
+}
+
+interface AuthState {
+  isAuthenticated: boolean;
+  user: User | null;
+}
+
+type AuthContextType = AuthState & AuthActions;
+
 interface CitiesActions {
   addCity: (city: City) => Promise<void>;
   deleteCity: (id: number) => Promise<void>;
@@ -31,4 +43,20 @@ interface Country {
   emoji: string;
 }
 
-export type { CitiesContextType, CitiesActions, CitiesState, City, Country };
+interface User {
+  avatar: string;
+  email: string;
+  name: string;
+  password: string;
+}
+
+export type {
+  AuthContextType,
+  AuthState,
+  CitiesContextType,
+  CitiesActions,
+  CitiesState,
+  City,
+  Country,
+  User,
+};
