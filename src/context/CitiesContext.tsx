@@ -1,4 +1,4 @@
-import { createContext, useEffect, useReducer } from "react";
+import { createContext, useCallback, useEffect, useReducer } from "react";
 
 import type { CitiesState, CitiesContextType, City } from "@/types";
 
@@ -129,24 +129,27 @@ function CitiesProvider({ children }: Props) {
       );
   }
 
-  function getCity(id: number) {
-    // If the city is already loaded, don't fetch it again
-    if (id === currentCity?.id) return;
+  const getCity = useCallback(
+    function getCity(id: number) {
+      // If the city is already loaded, don't fetch it again
+      if (id === currentCity?.id) return;
 
-    dispatch({ type: "loading" });
-    fetch(`${CITIES_API}/${id}`)
-      .then((response) => {
-        if (!response.ok) throw new Error("City not found 😅");
-        return response.json();
-      })
-      .then((data: City) => {
-        if (data.id) dispatch({ type: "city/loaded", payload: data });
-        else throw new Error("City not found 😅");
-      })
-      .catch((error: Error) =>
-        dispatch({ type: "rejected", payload: error.message })
-      );
-  }
+      dispatch({ type: "loading" });
+      fetch(`${CITIES_API}/${id}`)
+        .then((response) => {
+          if (!response.ok) throw new Error("City not found 😅");
+          return response.json();
+        })
+        .then((data: City) => {
+          if (data.id) dispatch({ type: "city/loaded", payload: data });
+          else throw new Error("City not found 😅");
+        })
+        .catch((error: Error) =>
+          dispatch({ type: "rejected", payload: error.message })
+        );
+    },
+    [currentCity?.id]
+  );
 
   return (
     <CitiesContext.Provider

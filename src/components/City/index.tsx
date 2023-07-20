@@ -27,7 +27,7 @@ function City() {
       setDisplayedCity(null);
       getCity(+id);
     }
-  }, [id]);
+  }, [getCity, id]);
 
   useEffect(() => {
     if (currentCity) setDisplayedCity(currentCity);
